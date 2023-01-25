@@ -19,10 +19,7 @@
                 .then(function (result) {
                     for(let i=0; i<result.results.length; i++) {
                         const orders = result.results[i];
-                        console.log(orders)
-                        // for(let i = 0; i < 10; i++) {
-                        //     $('.order-lists').append($(`<li class="list-group-item order-details">날짜:${orders[i].ord_ymd}  <br> 제품번호:${orders[i].ord_no}  </li>`))
-                        // }
+                         $('.order-lists').append($(`<li class="list-group-item order-details">날짜:${orders.ord_ymd}  <br> 제품번호:${orders.ord_no}  </li>`))
                     }
                 });
             }
