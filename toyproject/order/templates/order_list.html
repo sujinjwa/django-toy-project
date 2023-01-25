@@ -17,6 +17,7 @@
             //if (product_id > 0) { // 잘못된 값 예외처리
             $.get(`http://127.0.0.1:8000/api/order`)
                 .then(function (result) {
+                    $('.order-lists').html('');
                     for(let i=0; i<result.results.length; i++) {
                         const orders = result.results[i];
                          $('.order-lists').append($(`<li class="list-group-item order-details">날짜:${orders.ord_ymd}  <br> 제품번호:${orders.ord_no}  </li>`))
