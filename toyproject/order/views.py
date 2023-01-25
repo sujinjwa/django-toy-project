@@ -1,12 +1,19 @@
-from rest_framework import status # 상태 코드 반환하기 위한 프레임워크
-from rest_framework.views import APIView
+from rest_framework import generics, mixins
+from rest_framework import status
 from rest_framework.response import Response
-from django.shortcuts import render, redirect
+
 from .models import Order
+from .serializers import OrderSerializer
+from .paginations import OrderPagination
 
 # Create your views here.
-class OrderListView(APIView):
-    def get(self, request, *args, **kwargs):
-        orders = Order.objects.all()
+class OrderListView(mixins.ListModelMixin, generics.GenericAPIView):
+    serializer_class = OrderSerializer
+    pagination_class = OrderPagination
 
-        return render(request, 'order_list.html', {'orders': orders})
+    def get_queryset(self):
+        orders = Order.objects.all()
+        return orders
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, args, kwargs)
