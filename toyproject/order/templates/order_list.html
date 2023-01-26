@@ -12,10 +12,10 @@
     </head>
     <script>
         $(document).ready(function() {
-            const search = new URLSearchParams(location.search);
+            // const search = new URLSearchParams(location.search);
             // const product_id = search.get('product_id');
             //if (product_id > 0) { // 잘못된 값 예외처리
-            $.get(`http://127.0.0.1:8000/api/order`)
+            $.get('http://127.0.0.1:8000/api/order')
                 .then(function (result) {
                     $('.order-lists').html('');
                     for(let i=0; i<result.results.length; i++) {

@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'order.apps.OrderConfig',
+    'member.apps.MemberConfig', # member와 동일
     "corsheaders",
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -126,10 +128,27 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+SILENCED_SYSTEM_CHECKS = ['urls.W002'] # ?
+
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-		"PAGE_SIZE": 10,
+	"PAGE_SIZE": 10,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
 }
+
+import datetime
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("JWT", ),
+}
+
+AUTH_USER_MODEL = "member.Member" # django에서 해당 모델을 쓰겠다는 의미
+AUTHENTICATION_BACKENDS = [ # 로그인을 실제 처리하는 코드. 로그인이 되도록 인증 하기 위한 member 폴더 내 auth 파일의 MemberAuth클래스 로직
+    "member.auth.MemberAuth"
+]
 
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
