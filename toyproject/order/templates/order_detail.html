@@ -84,8 +84,20 @@
                 });
             }
 
-            $.get(`http://127.0.0.1:8000/api/order/${order_id}/comments`)
+            // 페이지네이션
+            let page = search.get('page');
+
+            if(!page) {
+                page = 1;
+            }
+
+            page = Number(page);
+
+            $.get(`http://127.0.0.1:8000/api/order/${order_id}/comments?page=${page}`)
                 .then(function (result) {
+                    let count_of_comments = result.count;
+                    let count_of_pages = Math.ceil(count_of_comments / 10);
+
                     for(let i=0; i<result.results.length; i++) {
                         $('.list-group').append(`<li class="list-group-item">
                                                     <span class="comment-text">${result.results[i].comment}</span>
@@ -96,6 +108,26 @@
                                                 </li>`)
                     }
                     $('.count-of-comments').text(`총 댓글 수 : ${result.results.length}개`)
+
+                    start_page = page - 2
+                    end_page = page + 2
+                    
+                    if(start_page < 1) {
+                        start_page = 1
+                    }
+
+                    if(end_page > count_of_pages) {
+                        end_page = count_of_pages
+                    }
+
+                    for(let i=start_page; i < end_page + 1; i++) {
+                        if(i == page) {
+                            $('.pagination').append(`<li class="page-item active"><a class="page-link first-link" href="order_detail.html?order_id=${order_id}&page=${i}">${i}</a></li>`)
+                        }
+                        else {
+                            $('.pagination').append(`<li class="page-item"><a class="page-link first-link" href="order_detail.html?order_id=${order_id}&page=${i}">${i}</a></li>`)
+                        }
+                    }
                 })
         })
     </script>
@@ -130,6 +162,13 @@
                 <span class="comment-date"></span> -->
             </li>
         </ul>
+
+        <!-- 댓글 페이지네이션 목차 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <!-- 페이지 5개 들어가는 구간 -->
+            </ul>
+        </nav>
         <!-- bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <script
