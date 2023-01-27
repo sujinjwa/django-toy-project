@@ -48,6 +48,24 @@
             })
         }
 
+        function clickLike(event, comment_id) {
+            $.ajax({
+                type: 'POST',
+                url: `http://127.0.0.1:8000/api/order/like`,
+                data: {
+                    comment: comment_id
+                },
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'JWT ' + $('#token').val());
+                },
+                success: (result) => {
+                       alert('좋아요를 눌렀습니다.')
+                }
+            })
+            
+            event.target.closest('.fa-heart').className = 'fa-solid fa-heart'
+        }
+
         $(document).ready(function() { 
             if (order_id > 0) { // 잘못된 값 예외처리
                 $.get(`http://127.0.0.1:8000/api/order/${order_id}`)
@@ -62,10 +80,11 @@
             $.get(`http://127.0.0.1:8000/api/order/${order_id}/comments`)
                 .then(function (result) {
                     for(let i=0; i<result.results.length; i++) {
-                        $('.list-group').append(`<li class="list-group-item" data-id="${i + 1}">
+                        $('.list-group').append(`<li class="list-group-item">
                                                     <span class="comment-text">${result.results[i].comment}</span>
                                                     <span class="comment-writer">${result.results[i].member_username}</span><br>
                                                     <span class="comment-date">${result.results[i].tstamp}</span>
+                                                    <i onclick="clickLike(event, ${result.results[i].id})" class="fa-regular fa-heart" style="cursor:pointer;"></i>
                                                     <i onclick="deleteComment(${result.results[i].id})" class="fa-regular fa-circle-xmark" style='cursor:pointer;'></i>
                                                 </li>`)
                     }

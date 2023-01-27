@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Order, Comment
-from .serializers import OrderSerializer, CommentSerializer, CommentCreateSerializer
+from .serializers import OrderSerializer, CommentSerializer, CommentCreateSerializer, LikeSerializer
 from .paginations import OrderPagination
 
 # Create your views here.
@@ -51,6 +51,11 @@ class CommentDeleteView(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, gen
     def get_queryset(self):
         return Comment.objects.all().order_by('-id')
 
-    def delete(self, request, pk, *args, **kwargs):
-        print(pk)
+    def delete(self, request, *args, **kwargs):
         return self.destroy(request, args, kwargs)
+
+class LikeCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
+    serializer_class = LikeSerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, args, kwargs)

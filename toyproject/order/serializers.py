@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order, Comment
+from .models import Order, Comment, Like
 
 class OrderSerializer(serializers.ModelSerializer):
 
@@ -34,4 +34,15 @@ class CommentCreateSerializer(serializers.ModelSerializer): # 댓글을 생성�
 
     class Meta:
         model = Comment
+        fields = '__all__'
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    member = serializers.HiddenField(
+        default=serializers.CurrentUserDefault(),
+        required=False
+    )
+
+    class Meta:
+        model = Like
         fields = '__all__'
