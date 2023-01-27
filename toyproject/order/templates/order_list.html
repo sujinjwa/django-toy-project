@@ -20,7 +20,7 @@
             }
 
             page = Number(page);
-            
+
             $.get(`http://127.0.0.1:8000/api/order?page=${page}`)
                 .then(function (result) {
                     $('.order-lists').html('');
@@ -44,7 +44,7 @@
             }
 
             for(let i=start_page; i < start_page + 5; i++) {
-                if(i == start_page + 2) {
+                if(i == page) {
                     $('.pagination').append(`<li class="page-item active"><a class="page-link first-link" href="order_list.html?page=${i}">${i}</a></li>`)
                 }
                 else {
