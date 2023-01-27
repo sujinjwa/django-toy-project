@@ -3,6 +3,7 @@ from .models import Member
 
 class MemberAuth:
     def authenticate(self, request, username=None, password=None, *args, **kwargs):
+        # 이미 로그인한 사용자가 로그인 시도한 경우
         if not username or not password:
             if request.user.is_authenticated:
                 return request.user
@@ -10,6 +11,7 @@ class MemberAuth:
         
         try:
             member = Member.objects.get(username=username)
+            
         except Member.DoesNotExist:
             return None
 

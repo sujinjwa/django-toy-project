@@ -20,7 +20,7 @@ class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated] # 로그인한 사용자만 들어올 수 있는 곳(request.user 들어있음)
 
     def put(self, request, *args, **kwargs):
-        #user_id = request.data.get('user_id') -> request.user 있으므로 생략 가능
+        # user_id = request.data.get('user_id') -> request.user 있으므로 생략 가능
         password = request.data.get('password')
         changed_password = request.data.get('changed_password')
         changed_password2 = request.data.get('changed_password2')

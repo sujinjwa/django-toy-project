@@ -27,5 +27,5 @@ class Comment(models.Model):
 
     class Meta:
         db_table = 'shinhan_order_comment'
-        verbose_name = '상품 댓글'
-        verbose_name_plural = '상품 댓글'
+        verbose_name = '주문 댓글'
+        verbose_name_plural = '주문 댓글'

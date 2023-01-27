@@ -44,3 +44,13 @@ class CommentCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     
     def post(self, request, *args, **kwargs):
         return self.create(request, args, kwargs)
+
+class CommentDeleteView(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    serializer_class = CommentCreateSerializer
+
+    def get_queryset(self):
+        return Comment.objects.all().order_by('-id')
+
+    def delete(self, request, pk, *args, **kwargs):
+        print(pk)
+        return self.destroy(request, args, kwargs)

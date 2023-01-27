@@ -145,9 +145,10 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT", ),
 }
 
-AUTH_USER_MODEL = "member.Member" # django에서 해당 모델을 쓰겠다는 의미
+AUTH_USER_MODEL = "member.Member" # django에게 해당 모델을 쓰겠다고 알림
+
 AUTHENTICATION_BACKENDS = [ # 로그인을 실제 처리하는 코드. 로그인이 되도록 인증 하기 위한 member 폴더 내 auth 파일의 MemberAuth클래스 로직
-    "member.auth.MemberAuth"
+    "member.auth.MemberAuth",
 ]
 
 if DEBUG:
