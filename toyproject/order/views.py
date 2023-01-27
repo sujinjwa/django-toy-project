@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Order, Comment
+from .models import Order, Comment, Like
 from .serializers import OrderSerializer, CommentSerializer, CommentCreateSerializer, LikeSerializer
 from .paginations import OrderPagination
 
@@ -56,6 +56,9 @@ class CommentDeleteView(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, gen
 
 class LikeCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class = LikeSerializer
+
+    # def get_queryset(self):
+    #     return Like.objects.all()
 
     def post(self, request, *args, **kwargs):
         return self.create(request, args, kwargs)

@@ -11,10 +11,14 @@ class CommentSerializer(serializers.ModelSerializer):
     # SerializerMethodField (읽기 전용 필드)
     # : 모델에 없는 필드를 JSON에 추가해주거나,
     # 모델에 있는 필드를 변경해서 JSON으로 내려줄 때 사용
+    like_count = serializers.SerializerMethodField()
     member_username = serializers.SerializerMethodField()
     tstamp = serializers.DateTimeField(
         read_only=True, format='%Y-%m-%d %H:%M:%S'
     )
+
+    def get_like_count(self, obj):
+        return obj.like_set.all().count()
 
     def get_member_username(self, obj): # self=serializer, obj=모델 객체?
         return obj.member.username

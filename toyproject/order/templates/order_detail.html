@@ -88,6 +88,7 @@
                                                     <i onclick="deleteComment(${result.results[i].id})" class="fa-regular fa-circle-xmark" style='cursor:pointer;'></i>
                                                 </li>`)
                     }
+                    $('.count-of-comments').text(`총 댓글 수 : ${result.results.length}개`)
                 })
         })
     </script>
@@ -112,6 +113,8 @@
             <label for="floatingTextarea2">Comments</label>
             <button onclick="submitComment()">작성</button>
         </div>
+        <!-- 총 댓글 수 -->
+        <h3 class="count-of-comments">총 댓글 수 : </h1>
         <!-- 댓글 리스트 -->
         <ul class="list-group">
             <li class="list-group-item">
