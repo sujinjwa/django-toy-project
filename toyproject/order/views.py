@@ -57,8 +57,15 @@ class CommentDeleteView(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, gen
 class LikeCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class = LikeSerializer
 
-    # def get_queryset(self):
-    #     return Like.objects.all()
+    def get_queryset(self):
+        return Like.objects.all()
 
     def post(self, request, *args, **kwargs):
+        comment = request.data.get('comment')
+        member = request.user
+
+        if Like.objects.filter(member=member, comment=comment).exists():
+            Like.objects.all().filter(member=member, comment=comment).delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        
         return self.create(request, args, kwargs)
