@@ -63,7 +63,14 @@
                 }
             })
             
-            event.target.closest('.fa-heart').className = 'fa-solid fa-heart'
+            icon = event.target.closest('.fa-heart')
+
+            if (icon.className === 'fa-solid fa-heart') {
+                icon.className = 'fa-regular fa-heart'
+            }
+            else {
+                icon.className = 'fa-solid fa-heart'
+            }
         }
 
         $(document).ready(function() { 
