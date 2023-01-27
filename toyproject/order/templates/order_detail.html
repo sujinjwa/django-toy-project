@@ -107,7 +107,7 @@
                                                     <i onclick="deleteComment(${result.results[i].id})" class="fa-regular fa-circle-xmark" style='cursor:pointer;'></i>
                                                 </li>`)
                     }
-                    $('.count-of-comments').text(`총 댓글 수 : ${result.results.length}개`)
+                    $('.count-of-comments').text(`총 댓글 수 : ${result.count}개`)
 
                     start_page = page - 2
                     end_page = page + 2
