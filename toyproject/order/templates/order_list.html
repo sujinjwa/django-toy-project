@@ -39,10 +39,14 @@
             }
 
             for(let i=start_page; i < start_page + 5; i++) {
+                if(i == start_page + 2) {
+                    $('.pagination').append(`<li class="page-item active"><a class="page-link first-link" href="order_list.html?page=${i}">${i}</a></li>`)
+                }
+                else {
                 $('.pagination').append(`<li class="page-item"><a class="page-link first-link" href="order_list.html?page=${i}">${i}</a></li>`)
+                }
             }
-            }
-        )
+        })
     </script>
     <body>
         <ul class="list-group order-lists">
