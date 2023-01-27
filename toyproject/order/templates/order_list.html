@@ -26,6 +26,21 @@
                                                     </a>`))
                     }
                 });
+            
+            console.log(page)
+            start_page = page - 2
+
+            if(start_page < 1) {
+                start_page = 1
+            }
+
+            if(page == 650 || page == 651) {
+                start_page = 651 - 4
+            }
+
+            for(let i=start_page; i < start_page + 5; i++) {
+                $('.pagination').append(`<li class="page-item"><a class="page-link first-link" href="order_list.html?page=${i}">${i}</a></li>`)
+            }
             }
         )
     </script>
@@ -37,11 +52,7 @@
         <!-- 페이지네이션 목차 -->
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="order_list.html?page=1">1</a></li>
-              <li class="page-item"><a class="page-link" href="order_list.html?page=2">2</a></li>
-              <li class="page-item"><a class="page-link" href="order_list.html?page=3">3</a></li>
-              <li class="page-item"><a class="page-link" href="order_list.html?page=4">4</a></li>
-              <li class="page-item"><a class="page-link" href="order_list.html?page=5">5</a></li>
+              <!-- 페이지 5개 들어가는 구간 -->
             </ul>
         </nav>
         <!-- bootstrap -->
